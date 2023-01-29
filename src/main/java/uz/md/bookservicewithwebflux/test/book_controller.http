@@ -1,0 +1,31 @@
+###
+POST http://localhost:8085/book/add
+Content-Type: application/json
+
+{
+  "title" : "book2",
+  "description" : "book2",
+  "pageCount" : "12",
+  "authors" : [1,15]
+}
+
+###
+GET http://localhost:8085/book/5
+
+###
+GET http://localhost:8085/book/edit
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "book2",
+  "description": "book2",
+  "pageCount": "12",
+  "authors": [
+    1,
+    15
+  ]
+}
+
+###
+GET http://localhost:8085/book/delete/4

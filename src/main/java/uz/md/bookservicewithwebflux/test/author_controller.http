@@ -1,0 +1,26 @@
+
+
+###
+POST http://localhost:8085/author/add
+Content-Type: application/json
+
+{
+  "firstName" : "author",
+  "lastName" : "author"
+}
+
+###
+GET http://localhost:8085/author/5
+
+###
+GET http://localhost:8085/author/edit
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "author",
+  "lastName": "author"
+}
+
+###
+GET http://localhost:8085/author/delete/4
