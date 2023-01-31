@@ -8,3 +8,7 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+producer:
+  service:
+    url: http://localhost:8081/

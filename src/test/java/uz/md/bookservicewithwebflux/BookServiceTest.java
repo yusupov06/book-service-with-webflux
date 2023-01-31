@@ -1,17 +1,12 @@
 package uz.md.bookservicewithwebflux;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
@@ -21,26 +16,24 @@ import uz.md.bookservicewithwebflux.dto.BookAddDto;
 import uz.md.bookservicewithwebflux.dto.BookDto;
 import uz.md.bookservicewithwebflux.entity.Book;
 import uz.md.bookservicewithwebflux.service.BookService;
+import uz.md.bookservicewithwebflux.service.BookServiceImpl;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext
-@AutoConfigureWebTestClient
+
+@DataR2dbcTest
 @ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
 @Slf4j
 public class BookServiceTest {
 
-    @Autowired
-    private BookService bookService;
-    @Autowired
-    private BookRepository bookRepository;
+    @InjectMocks
+    private BookServiceImpl bookService;
 
-    @BeforeEach
-    void setup()  {
-    }
+    @Mock
+    private BookRepository bookRepository;
 
     @Test
     public void shouldAddBook() {
@@ -52,6 +45,9 @@ public class BookServiceTest {
                 List.of(1L));
         Book book = Book.fromDTO(addDto);
         when(bookRepository.save(book)).thenReturn(Mono.just(book));
+
+        Mono<Long> add = bookService.add(addDto);
+
 
     }
 
